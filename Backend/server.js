@@ -1,8 +1,11 @@
 import express from "express";
+import connectDb from "./config/db.js";
 
 const app = express();
 
 let port = 3000;
+
+connectDb()
 
 // app.httpMethod('url' , handler)
 
