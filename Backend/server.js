@@ -9,12 +9,12 @@ connectDb()
 
 // app.httpMethod('url' , handler)
 
-app.get("/", (req, res) => {
-  res.send("haiiii");
+app.use(express.json()) // parses incoming requests with json , adds a 'body' property to the request object (req.body)
+app.use(express.urlencoded({extended : true}))
+
+app.post("/create-todo", (req, res) => {
+  console.log(req.body)
 });
 
-app.get("/users", (req, res) => {
-  res.send("users");
-});
 
 app.listen(port, () => console.log("server started"));
