@@ -1,33 +1,34 @@
 import Todos from "../models/todoModel.js";
 
-const createTodo = async(req, res) => {
+const createTodo = async (req, res) => {
+  const { title, description } = req.body;
 
-  const {title , description} = req.body
-  
   let todo = await Todos.create({
     title,
-    description
-  })
+    description,
+  });
 
-  res.json(todo)
+  res.json(todo);
+};
 
-}
+const getTodos = async (req, res) => {
+  let todos = await Todos.find();
 
-const getTodos = async(req,res)=>{
+  res.json(todos);
+};
 
-  let todos = await Todos.find()
+const deleteTodo = async (req, res) => {
+  try {
+    const deleted = await Todos.findByIdAndDelete(req.params.id);
 
-  res.json(todos)
-
-}
-
-
-const deleteTodo = async(req,res)=>{
-    try {
-        console.log(req.params.id)
-    } catch (error) {
-        res.send(error)
+    if (!deleted) {
+      return res.status(404).json({ message: "todo not found" });
     }
-}
 
-export {createTodo , getTodos , deleteTodo}
+    return res.json({ message: "deleted" });
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+export { createTodo, getTodos, deleteTodo };

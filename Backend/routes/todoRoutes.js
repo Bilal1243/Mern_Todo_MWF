@@ -4,6 +4,8 @@ const todoRoute = express.Router();
 
 import { createTodo, getTodos , deleteTodo } from "../controllers/TodoController.js";
 
+// app.httpMethod('/url' , handler)
+
 todoRoute.get("/", getTodos);
 
 // http:localhost:3000/api/todos/create-todo
